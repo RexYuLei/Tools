@@ -13,14 +13,97 @@ public class ABTest : MonoBehaviour
 
     private void Awake()
     {
-        ABLoad();
+        AbLoad("path");
+        AbUnLoad();
     }
 
-
-    public void ABLoad()
+    /// <summary>
+    /// 三种加载方式
+    /// 1.从服务器加载
+    /// 2.从本地文件加载
+    /// 3.从内存中加载
+    /// </summary>
+    /// <param name="path"></param>
+    public void AbLoad(string path)
     {
-
+        ABLoadFromWeb("");
+        ABLoadFromFile();
+        ABLoadFromMemory("");
+        ABLoadFromMStream();
     }
+    /// <summary>
+    /// 从服务器加载
+    /// </summary>
+    /// <param name="path"></param>
+    private void ABLoadFromWeb(string path)
+    {
+        var uwr = UnityWebRequestAssetBundle.GetAssetBundle(path);
+        uwr.SendWebRequest();
+        //获得资源并实例化
+        AssetBundle bundleWeb = DownloadHandlerAssetBundle.GetContent(uwr);
+        var loadAsset = bundleWeb.LoadAsset<GameObject>("Assets/Players/MainPlayer.prefab");
+        var loadAssetAsync = bundleWeb.LoadAssetAsync<GameObject>("Assets/Players/MainPlayer.prefab");
+        Instantiate(loadAsset);
+        Instantiate(loadAssetAsync.asset);
+        bundleWeb.Unload(false);
+    }
+    /// <summary>
+    /// 从本地文件加载
+    /// </summary>
+    private void ABLoadFromFile()
+    {
+        //从本地文件加载
+        AssetBundle myLoadedAssetBundleFromFile =
+            AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, "myAssetBundle"));
+        if (myLoadedAssetBundleFromFile == null)
+        {
+            Debug.Log("Failed to load AssetBundle!");
+        }
+        var prefab = myLoadedAssetBundleFromFile.LoadAsset<GameObject>("MyObject");
+        Instantiate(prefab);
+        myLoadedAssetBundleFromFile.Unload(false);
+    }
+    /// <summary>
+    /// 从内存中加载
+    /// </summary>
+    private void ABLoadFromMemory(string path)
+    {
+        var uwr2 = UnityWebRequest.Get(path);
+        byte[] bytes = uwr2.downloadHandler.data;
+        AssetBundle myLoadedAssetBundleFromMemory = AssetBundle.LoadFromMemory(bytes);
+        var prefab = myLoadedAssetBundleFromMemory.LoadAsset<GameObject>("MyObject");
+        Instantiate(prefab);
+        myLoadedAssetBundleFromMemory.Unload(false);
+    }
+    /// <summary>
+    /// 从托管流中加载
+    /// </summary>
+    private void ABLoadFromMStream()
+    {
+        //从托管流中加载
+        var fileStream = new FileStream(Application.streamingAssetsPath, FileMode.Open, FileAccess.Read);
+        var myLoadedAssetBundleFromStream = AssetBundle.LoadFromStream(fileStream);
+        var prefab = myLoadedAssetBundleFromStream.LoadAsset<GameObject>("MyObject");
+        Instantiate(prefab);
+        myLoadedAssetBundleFromStream.Unload(false);
+    }
+    
+
+    /// <summary>
+    /// AB卸载
+    /// 1.减少内存的使用
+    /// 2.有可能导致丢失
+    /// 3.在切换场景，或者确定不使用的时候卸载
+    /// </summary>
+    /// <returns></returns>
+    public void AbUnLoad()
+    {
+        AssetBundle abAsset =AssetBundle.LoadFromFile("");
+        abAsset.Unload(true);//卸载所有资源，包含气中正被使用的资源
+        abAsset.Unload(false);//卸载没被使用的资源
+        Resources.UnloadUnusedAssets();//卸载所有没被使用的资源
+    }
+    
 
     [MenuItem("Custom Editor/Create AssetBundles Main")]
     static void CreateAssetBundlesMain()
@@ -57,63 +140,14 @@ public class ABTest : MonoBehaviour
         Caching.ClearCache();
 
         string Path = Application.dataPath + "/StreamingAssets/ALL.assetbundle";
-        Object[] SelectedAsset = Selection.GetFiltered (typeof(Object), SelectionMode.DeepAssets);
+        Object[] SelectedAsset = Selection.GetFiltered(typeof(Object), SelectionMode.DeepAssets);
         
         if (BuildPipeline.BuildAssetBundles(Path, BuildAssetBundleOptions.None,BuildTarget.StandaloneWindows))
         {
             
-        } 
-        else
-        {
- 
         }
         
         AssetDatabase.Refresh();
-        }
-
-    
-    
-    private IEnumerator LoadMainGameObject(string path)
-    {
-        //从服务器加载
-        var uwr = UnityWebRequestAssetBundle.GetAssetBundle(path);
-        yield return uwr.SendWebRequest();
-        //获得资源并实例化
-        AssetBundle bundleWeb = DownloadHandlerAssetBundle.GetContent(uwr);
-        var loadAsset = bundleWeb.LoadAsset<GameObject>("Assets/Players/MainPlayer.prefab");
-        var loadAssetAsync = bundleWeb.LoadAssetAsync<GameObject>("Assets/Players/MainPlayer.prefab");
-        yield return loadAsset;
-        Instantiate(loadAsset);
-        Instantiate(loadAssetAsync.asset);
-
-        //从本地文件加载
-        AssetBundle myLoadedAssetBundleFromFile =
-            AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, "myAssetBundle"));
-        if (myLoadedAssetBundleFromFile == null)
-        {
-            Debug.Log("Failed to load AssetBundle!");
-            yield return null;
-        }
-        var prefab = myLoadedAssetBundleFromFile.LoadAsset<GameObject>("MyObject");
-        Instantiate(prefab);
-        myLoadedAssetBundleFromFile.Unload(false);
-        
-        //从内存中加载
-        var uwr2 = UnityWebRequest.Get(path);
-        yield return uwr2.SendWebRequest();
-        byte[] bytes = uwr2.downloadHandler.data;
-        AssetBundle myLoadedAssetBundleFromMemory = AssetBundle.LoadFromMemory(bytes);//实例化同上
-        
-        //从托管流中加载
-        var fileStream = new FileStream(Application.streamingAssetsPath, FileMode.Open, FileAccess.Read);
-        var myLoadedAssetBundleFromStream = AssetBundle.LoadFromStream(fileStream);//实例化同上
-        
-
-        
-        
-        
-        AssetBundle ab3 = AssetBundle.LoadFromFile(path);
-
     }
 }
 
