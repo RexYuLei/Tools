@@ -1,0 +1,72 @@
+{
+    "name": "InputAction",
+    "maps": [
+        {
+            "name": "Key",
+            "id": "edfda870-e1e0-4ae2-934f-636d313fcef5",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "3f6c31b5-e06d-4bc3-b5a3-41ebbd55a49b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a5b16a6a-25c3-47f2-addd-49213cd0529d",
+                    "path": "<Keyboard>/w",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "KeyCode",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8535ab65-0fcd-4984-8894-0262648621ed",
+                    "path": "<Keyboard>/s",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "KeyCode",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "21a66283-77c0-4060-921f-b981cd6eb027",
+                    "path": "<Keyboard>/a",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "KeyCode",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c2a0615e-faa7-4484-bef4-67e3094da489",
+                    "path": "<Keyboard>/d",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "KeyCode",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "KeyCode",
+            "bindingGroup": "KeyCode",
+            "devices": []
+        }
+    ]
+}
