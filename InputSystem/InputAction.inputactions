@@ -6,58 +6,69 @@
             "id": "edfda870-e1e0-4ae2-934f-636d313fcef5",
             "actions": [
                 {
-                    "name": "New action",
-                    "type": "Button",
+                    "name": "Move",
+                    "type": "Value",
                     "id": "3f6c31b5-e06d-4bc3-b5a3-41ebbd55a49b",
-                    "expectedControlType": "",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
                 }
             ],
             "bindings": [
                 {
-                    "name": "",
-                    "id": "a5b16a6a-25c3-47f2-addd-49213cd0529d",
+                    "name": "PC",
+                    "id": "5c94cd8e-7265-4d1a-a690-d3c2fc18c155",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "c4017b39-ea69-43cf-b780-978fd5b7533d",
                     "path": "<Keyboard>/w",
-                    "interactions": "Press",
+                    "interactions": "",
                     "processors": "",
-                    "groups": "KeyCode",
-                    "action": "New action",
+                    "groups": "",
+                    "action": "Move",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "8535ab65-0fcd-4984-8894-0262648621ed",
+                    "name": "down",
+                    "id": "95d8d70e-f0ec-4191-be4f-55add3084fcf",
                     "path": "<Keyboard>/s",
-                    "interactions": "Press",
+                    "interactions": "",
                     "processors": "",
-                    "groups": "KeyCode",
-                    "action": "New action",
+                    "groups": "",
+                    "action": "Move",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "21a66283-77c0-4060-921f-b981cd6eb027",
+                    "name": "left",
+                    "id": "8419c71d-910e-458a-8b6b-b4f01081b528",
                     "path": "<Keyboard>/a",
-                    "interactions": "Press",
+                    "interactions": "",
                     "processors": "",
-                    "groups": "KeyCode",
-                    "action": "New action",
+                    "groups": "",
+                    "action": "Move",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "c2a0615e-faa7-4484-bef4-67e3094da489",
+                    "name": "right",
+                    "id": "251c5bb1-b64b-48d5-b5fd-2d68903a2171",
                     "path": "<Keyboard>/d",
-                    "interactions": "Press",
+                    "interactions": "",
                     "processors": "",
-                    "groups": "KeyCode",
-                    "action": "New action",
+                    "groups": "",
+                    "action": "Move",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 }
             ]
         }
